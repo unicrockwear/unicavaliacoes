@@ -240,7 +240,10 @@ function uniq(mk){const used=new Set();Object.values(S.cd).forEach(c=>{used.add(
 const gCode=()=>'UNIC-'+rnd(4)+'-'+rnd(4), gVer=()=>rnd(4)+'-'+rnd(4)+'-'+rnd(4)+'-'+rnd(4);
 const normIg=v=>v.trim().toLowerCase().replace(/^https?:\/\/(www\.)?instagram\.com\//,'').replace(/[\/?#].*$/,'').replace(/^@+/,'');
 function fit(x,t,w,sz,f){do{x.font=sz+'px '+f;sz-=2}while(x.measureText(t).width>w&&sz>10)}
-function drawCard(c){const W=1000,H=560,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');
+
+/* --- GERADOR DE CARTÃO DE DESCONTO COM AVISO DE 60 DIAS --- */
+function drawCard(c){
+const W=1000,H=560,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');
 const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,'#141414');g.addColorStop(1,'#000');x.fillStyle=g;x.fillRect(0,0,W,H);
 x.strokeStyle=S.ac;x.lineWidth=8;x.strokeRect(4,4,W-8,H-8);x.setLineDash([12,8]);x.lineWidth=2;x.strokeRect(20,20,W-40,H-40);x.setLineDash([]);
 x.textAlign='center';const F='"Arial Black",Arial,sans-serif';
@@ -258,12 +261,16 @@ x.fillStyle='#888';x.font='13px Arial';x.fillText('CÓDIGO DO CARTÃO',540,314);
 x.fillStyle=S.ac;x.font='38px '+F;x.fillText(c.code,540,356);
 x.fillStyle='#888';x.font='13px Arial';x.fillText('VERIFICAÇÃO ÚNICA E EXCLUSIVA',540,394);
 x.fillStyle='#fff';x.font='bold 26px "Courier New",monospace';x.fillText(c.ver,540,428);
-x.textAlign='center';x.fillStyle='#ddd';x.font='bold 17px Arial';x.fillText('Válido para o Titular: @'+c.ig+' · Uso único, pessoal e intransferível',W/2,498);
-x.fillStyle='#777';x.font='12px Arial';x.fillText('Sujeito à conferência do código de verificação pela loja. Cartões duplicados ou de terceiros não serão aceitos.',W/2,526);
+x.textAlign='center';
+// DESTAQUE DE VALIDADE DE 60 DIAS PARA INDUZIR A COMPRA RÁPIDA
+x.fillStyle='#f5c400';x.font='bold 16px Arial';x.fillText('⏳ Válido por 60 dias a partir da emissão',W/2,482);
+x.fillStyle='#ddd';x.font='bold 15px Arial';x.fillText('Válido para o Titular: @'+c.ig+' · Uso único, pessoal e intransferível',W/2,508);
+x.fillStyle='#777';x.font='12px Arial';x.fillText('Sujeito à conferência do código de verificação pela loja. Cartões duplicados não serão aceitos.',W/2,534);
 return cv}
+
 function showCard(c){$('fm').style.display='none';const cp=$('cp');cp.style.display='grid';cp.innerHTML='';$('fmt').textContent='Seu cartão de desconto';
 const cv=drawCard(c),side=document.createElement('div');
-side.innerHTML='<p><b style="color:var(--ac)">Avaliação enviada. Obrigado!</b><br>Este cartão é válido somente para o titular <b>@'+esc(c.ig)+'</b>, com uso único, pessoal e intransferível. Baixe e guarde a imagem para apresentar na sua próxima encomenda.</p><div class="ar"></div>';
+side.innerHTML='<p><b style="color:var(--ac)">Avaliação enviada. Obrigado!</b><br>Este cartão é válido por <b>60 dias</b> somente para o titular <b>@'+esc(c.ig)+'</b>, com uso único, pessoal e intransferível. Baixe e guarde a imagem para apresentar na sua próxima encomenda.</p><div class="ar"></div>';
 const d=document.createElement('button');d.textContent='⬇ Baixar cartão';d.onclick=()=>{const a=document.createElement('a');a.href=cv.toDataURL('image/png');a.download='cartao-unic-'+c.ig+'.png';a.click()};
 const f=document.createElement('button');f.className='g';f.textContent='Fechar';f.onclick=()=>$('fmm').classList.remove('on');
 side.lastChild.append(d,f);cp.append(cv,side)}
