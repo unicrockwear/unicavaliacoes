@@ -204,7 +204,7 @@ db.ref('unic_dados').on('value', (snapshot) => {
   }
 });
 
-const save = () => { db.ref('unic_dados').set(S).catch(e => alert('Erro: ' + e)); };
+const save = () => { return db.ref('unic_dados').set(S); };
 
 const BANDS='Metallica Iron Maiden AC/DC Guns N\' Roses Nirvana Linkin Park Misfits Kiss Queen Black Sabbath Pink Floyd Led Zeppelin Ramones Slayer Megadeth Pantera Ozzy Osbourne Rolling Stones The Doors Scorpions Aerosmith Bon Jovi Rush Deep Purple ';
 $('bgt').textContent=BANDS.repeat(6);
@@ -284,7 +284,15 @@ if(S.cd[ig]){showCard(S.cd[ig]);return}
 const f=$('ph').files[0];const p=f?await img(f,96,96,.8):null;
 const t=Date.now(),code=uniq(gCode),ver=uniq(gVer);
 const card={code,ver,n,ig,t,pct:S.pct,u:0};S.cd[ig]=card;
-S.r.push({n,ig,c,s:sel,p,t,h:0,code});save();rend();showCard(card)};
+S.r.push({n,ig,c,s:sel,p,t,h:0,code});
+try {
+  await save();
+  rend();
+  showCard(card);
+} catch(e) {
+  $('msg').textContent='Erro ao enviar. Tente novamente.';
+  console.error(e);
+}};
 
 let clicks=0,clt;
 const openLoginModal = ()=>{clicks++;clearTimeout(clt);clt=setTimeout(()=>clicks=0,900);if(clicks>=3){clicks=0;$('lm').classList.add('on')}};
@@ -383,6 +391,7 @@ $('radio').onclick = (e) => {
 };
 
 $('mp3Input').onchange = e => {
+  $ = i => document.getElementById(i);
   const file = e.target.files[0];
   if (file) {
     const reader = new FileReader();
