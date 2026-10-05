@@ -197,7 +197,6 @@ db.ref('unic_dados').on('value', (snapshot) => {
     car();   
     rend();  
     
-    // Só recarrega a fonte do áudio se a faixa tiver sido alterada na base
     if (oldAudio !== S.audioData || !audioInitialized) {
       loadAudio();
       audioInitialized = true;
@@ -308,7 +307,7 @@ const b=document.createElement('button');b.className='g';b.textContent=c.u?'Reat
 $('cl').onclick=()=>$('pm').classList.remove('on');
 $('ex').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));a.download='unic-backup.json';a.click()};
 
-/* --- GERENCIADOR DE ÁUDIO AUTO-START --- */
+/* --- GERENCIADOR DE ÁUDIO AUTO-START OTIMIZADO PARA MOBILE & PC --- */
 const player = $('audioPlayer');
 
 $('eq').querySelectorAll('i').forEach(i => {
@@ -322,7 +321,7 @@ function tryPlayAudio() {
       $('radio').classList.add('on');
       $('radioTxt').textContent = "Rádio Unic Tocando...";
     }).catch(e => {
-      // Aguarda o primeiro clique na página caso o navegador bloqueie
+      // Bloqueio de autoplay inicial do navegador
     });
   }
 }
@@ -342,16 +341,24 @@ function loadAudio() {
   }
 }
 
-// Inicia o áudio no primeiro clique do usuário em qualquer lugar da tela
+// Interação universal de toque/clique para forçar o start do áudio em telemóveis e computadores
 const startAudioOnFirstUserInteraction = () => {
   if (player.src && player.paused) {
-    tryPlayAudio();
+    player.play().then(() => {
+      $('radio').classList.add('on');
+      $('radioTxt').textContent = "Rádio Unic Tocando...";
+    }).catch(err => {
+      console.log("Aguardando interação tátil adicional:", err);
+    });
   }
-  document.removeEventListener('click', startAudioOnFirstUserInteraction);
-  document.removeEventListener('touchstart', startAudioOnFirstUserInteraction);
+  ['click', 'touchstart', 'touchend', 'pointerdown'].forEach(evt => {
+    document.removeEventListener(evt, startAudioOnFirstUserInteraction);
+  });
 };
-document.addEventListener('click', startAudioOnFirstUserInteraction);
-document.addEventListener('touchstart', startAudioOnFirstUserInteraction);
+
+['click', 'touchstart', 'touchend', 'pointerdown'].forEach(evt => {
+  document.addEventListener(evt, startAudioOnFirstUserInteraction, { once: true, passive: true });
+});
 
 $('radio').onclick = (e) => {
   e.stopPropagation();
