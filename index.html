@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="utf-8">
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Unic Rockwear — Avaliações</title>
 <style>
@@ -50,9 +52,128 @@ h2{font-size:16px;margin:0 0 8px;color:var(--ac)}
 input,select,textarea{background:#111;color:#fff;border:1px solid #444;padding:9px;font-family:Arial;width:100%;margin:4px 0 10px;border-radius:3px}
 label{font-size:12px;color:var(--gr)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#stars span{font-size:32px;color:#555;cursor:pointer}
+#stars span.on{color:var(--ac)}
+.modal{position:fixed;inset:0;background:#000d;display:none;align-items:center;justify-content:center;z-index:10;padding:20px}
+.modal.on{display:flex}
+.mbox{background:#111;border:2px solid var(--ac);width:100%;max-width:480px;padding:20px;border-radius:4px;max-height:90vh;overflow-y:auto}
+@media(max-width:900px){main{grid-template-columns:1fr;overflow-y:auto}body{overflow:auto}}
 </style>
 </head>
 <body>
-<!-- Conteúdo da página -->
+<div id="bgw">
+  <div id="bgt">UNIC ROCKWEAR PUNK ROCK HEAVY METAL CUSTOM JACKETS</div>
+</div>
+<header>
+  <div class="lg">
+    <h1 onclick="location.reload()">UNIC <span>ROCKWEAR</span></h1>
+  </div>
+  <button onclick="openModal()">Deixar Avaliação</button>
+</header>
+<main>
+  <div class="col">
+    <div class="card sum">
+      <div>
+        <div class="big" id="avgNum">5.0</div>
+        <div>
+          <div class="st">★★★★★</div>
+          <div style="font-size:13px;color:var(--gr)"><span id="totalRv">0</span> avaliações de clientes</div>
+        </div>
+      </div>
+    </div>
+    <div class="card rc" style="flex:1;">
+      <h2>Opiniões da Galera</h2>
+      <div id="list"></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" style="flex:1;display:flex;flex-direction:column;">
+      <h2>Destaques Unic</h2>
+      <div id="car">
+        <div id="trk">
+          <div style="background:linear-gradient(135deg,#111,#222)">UNIC ROCKWEAR — CUSTOM APPAREL</div>
+          <div style="background:linear-gradient(135deg,#1a1a1a,#111)">DTG &amp; DTF PRINTING</div>
+        </div>
+        <div id="dots"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="modal" id="modal">
+  <div class="mbox">
+    <h2>Nova Avaliação</h2>
+    <form id="form" onsubmit="saveRv(event)">
+      <label>Seu Nome</label>
+      <input type="text" id="name" required placeholder="Ex: Almir Brito">
+      <label>Sua Nota</label>
+      <div id="stars" style="margin:6px 0 12px">
+        <span onclick="setRate(1)">★</span><span onclick="setRate(2)">★</span><span onclick="setRate(3)">★</span><span onclick="setRate(4)">★</span><span onclick="setRate(5)" class="on">★</span>
+      </div>
+      <input type="hidden" id="rate" value="5">
+      <label>Seu Comentário</label>
+      <textarea id="comm" rows="4" required placeholder="O que achou da jaqueta/produto?"></textarea>
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <button type="submit" style="flex:1">Enviar Avaliação</button>
+        type="button" class="g" onclick="closeModal()" style="flex:1">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+let reviews = JSON.parse(localStorage.getItem('unic_reviews') || '[]');
+if(reviews.length === 0) {
+  reviews = [
+    {name: "Almir Brito", rate: 5, date: "02/04/2026", comm: "Jaqueta Motorhead impecável! Qualidade de impressão e acabamento absurdos."},
+    {name: "Samantha Coelho", rate: 5, date: "10/03/2026", comm: "A jaqueta Guns N' Roses Bullet Fire ficou perfeita. Atendimento nota 10!"},
+    {name: "Adriana Szklo", rate: 5, date: "28/02/2026", comm: "Simplesmente apaixonada pelas minhas jaquetas customizadas. Trabalho único!"}
+  ];
+  localStorage.setItem('unic_reviews', JSON.stringify(reviews));
+}
+
+function render() {
+  const list = document.getElementById('list');
+  list.innerHTML = '';
+  let sum = 0;
+  reviews.forEach(r => {
+    sum += Number(r.rate);
+    const div = document.createElement('div');
+    div.className = 'rv';
+    div.innerHTML = `<div class="av">${r.name.charAt(0)}</div>
+      <div style="flex:1">
+        <div style="display:flex;justify-content:space-between"><b>${r.name}</b><small>${r.date}</small></div>
+        <div style="color:var(--ac);font-size:12px">${'★'.repeat(r.rate)}${'☆'.repeat(5-r.rate)}</div>
+        <p>${r.comm}</p>
+      </div>`;
+    list.appendChild(div);
+  });
+  document.getElementById('totalRv').innerText = reviews.length;
+  document.getElementById('avgNum').innerText = (reviews.length ? (sum/reviews.length).toFixed(1) : '5.0');
+}
+
+function openModal() { document.getElementById('modal').classList.add('on'); }
+function closeModal() { document.getElementById('modal').classList.remove('on'); }
+function setRate(n) {
+  document.getElementById('rate').value = n;
+  document.querySelectorAll('#stars span').forEach((s, i) => {
+    s.classList.toggle('on', i < n);
+  });
+}
+function saveRv(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const rate = document.getElementById('rate').value;
+  const comm = document.getElementById('comm').value;
+  const date = new Date().toLocaleDateString('pt-BR');
+  reviews.unshift({name, rate, date, comm});
+  localStorage.setItem('unic_reviews', JSON.stringify(reviews));
+  closeModal();
+  render();
+  document.getElementById('form').reset();
+  setRate(5);
+}
+render();
+</script>
 </body>
 </html>
