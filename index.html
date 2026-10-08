@@ -193,7 +193,6 @@ const fbErr = (what) => (err) => {
   console.error('Firebase ('+what+'):', err && err.code, err && err.message);
   fbAlert('Erro no Firebase ('+what+'): '+((err && err.code) || 'erro')+'. Verifique as regras do banco.');
 };
-// chave do Firebase não aceita "." — troca por ","
 const igKey = ig => String(ig).replace(/\./g, ',');
 
 // ---------- Configurações (banners, logo, áudio, cores) ----------
@@ -220,7 +219,7 @@ db.ref('unic_dados').on('value', (snapshot) => {
   }
 }, fbErr('configurações'));
 
-// ---------- Avaliações (nó próprio, leve e rápido) ----------
+// ---------- Avaliações ----------
 db.ref('unic_avaliacoes').on('value', (snap) => {
   const v = snap.val() || {};
   S.r = Object.keys(v).map(k => Object.assign({_k:k}, v[k])).sort((a,b)=>(a.t||0)-(b.t||0));
@@ -235,7 +234,6 @@ db.ref('unic_cartoes').on('value', (snap) => {
   S.cd = o;
 }, fbErr('cartões'));
 
-// ---------- Migração única dos dados antigos (unic_dados.r / unic_dados.cd) ----------
 function mergeInto(path, obj){
   return db.ref(path).transaction(cur => Object.assign({}, obj, cur || {}));
 }
@@ -256,7 +254,6 @@ function migrateLegacy(lr, lc){
     .catch(fbErr('migração'));
 }
 
-// Salva só as configurações (nunca avaliações/cartões)
 const save = () => {
   if (!fbReady) {
     fbAlert('Banco ainda não carregou — nada foi salvo.');
@@ -283,13 +280,26 @@ function go(i){ci=i%3;$('trk').style.transform='translateX(-'+ci*100+'%)';[...$(
 
 const fmt=t=>{const o={timeZone:'America/Sao_Paulo'},d=new Date(t);return d.toLocaleDateString('pt-BR',{...o,day:'2-digit',month:'2-digit',year:'numeric'})+' às '+d.toLocaleTimeString('pt-BR',{...o,hour:'2-digit',minute:'2-digit'})};
 function stars(n){return '★'.repeat(n)+'☆'.repeat(5-n)}
-function rend(){const v=S.r.filter(x=>!x.h);const a=v.length?v.reduce((s,x)=>s+x.s,0)/v.length:0;
-$('avg').textContent=a.toFixed(1).replace('.',',');$('avst').textContent=stars(Math.round(a));$('cnt').textContent=v.length+(v.length==1?' avaliação':' avaliações');
-const L=$('list');L.innerHTML=v.length?'':'<p style="color:#777">Seja o primeiro a avaliar!</p>';
-v.slice().reverse().forEach(x=>{const e=document.createElement('div');e.className='rv';
-const av=x.p?'<img src="'+x.p+'" alt="">':'<div class="av"><svg viewBox="0 0 24 24" width="26" height="26" fill="#888" aria-label="Usuário"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-4.7 3.8-8 8.5-8s8.5 3.3 8.5 8z"/></svg></div>';
-const ig=x.ig?'<a class="ig" href="https://www.instagram.com/'+esc(x.ig)+'/" target="_blank" rel="noopener">@'+esc(x.ig)+'</a>':'';
-e.innerHTML=av+'<div><b>'+esc(x.n)+'</b>'+ig+'<span class="dt">'+esc(x.t?fmt(x.t):(x.d||''))+'</span><div class="st">'+stars(x.s)+'</div><p>'+esc(x.c+'</p></div>');L.appendChild(e)})}
+
+function rend(){
+  const v = S.r.filter(x => !x.h);
+  const a = v.length ? v.reduce((s,x)=>s+x.s,0)/v.length : 0;
+  $('avg').textContent = a.toFixed(1).replace('.',',');
+  $('avst').textContent = stars(Math.round(a));
+  $('cnt').textContent = v.length + (v.length == 1 ? ' avaliação' : ' avaliações');
+  
+  const L = $('list');
+  L.innerHTML = v.length ? '' : '<p style="color:#777">Seja o primeiro a avaliar!</p>';
+  
+  v.slice().reverse().forEach(x => {
+    const e = document.createElement('div');
+    e.className = 'rv';
+    const av = x.p ? '<img src="'+x.p+'" alt="">' : '<div class="av"><svg viewBox="0 0 24 24" width="26" height="26" fill="#888" aria-label="Usuário"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-4.7 3.8-8 8.5-8s8.5 3.3 8.5 8z"/></svg></div>';
+    const ig = x.ig ? '<a class="ig" href="https://www.instagram.com/'+esc(x.ig)+'/" target="_blank" rel="noopener">@'+esc(x.ig)+'</a>' : '';
+    e.innerHTML = av + '<div><b>'+esc(x.n)+'</b>'+ig+'<span class="dt">'+esc(x.t?fmt(x.t):(x.d||''))+'</span><div class="st">'+stars(x.s)+'</div><p>'+esc(x.c)+'</p></div>';
+    L.appendChild(e);
+  });
+}
 
 let sel=0;
 const st=$('stars');for(let i=1;i<=5;i++){const s=document.createElement('span');s.textContent='★';s.onclick=()=>{sel=i;[...st.children].forEach((c,j)=>c.classList.toggle('on',j<i))};st.appendChild(s)}
@@ -344,7 +354,6 @@ let ex=null;
 try{
   ex=(await db.ref('unic_cartoes/'+igKey(ig)).once('value')).val();
   if(ex){
-    // já tem cartão: só bloqueia se também já existe avaliação desse Instagram
     const has=(await db.ref('unic_avaliacoes').orderByChild('ig').equalTo(ig).once('value')).exists();
     if(has){showCard(ex);return}
   }
@@ -405,9 +414,7 @@ function tryPlayAudio() {
     player.play().then(() => {
       $('radio').classList.add('on');
       $('radioTxt').textContent = "Rádio Unic Tocando...";
-    }).catch(e => {
-      // Bloqueio de autoplay inicial do navegador
-    });
+    }).catch(e => {});
   }
 }
 
@@ -480,7 +487,8 @@ $('rmvAudio').onclick = () => {
   $('mp3Input').value = '';
   alert("Áudio removido!");
 };
-</script><script>
+</script>
+<script>
 (function(){var el=document.querySelector('.info');if(!el)return;
 var its=[].slice.call(el.querySelectorAll('.it'));
 function over(){if(el.scrollHeight>el.clientHeight+1)return true;return its.some(function(i){return i.scrollHeight>i.clientHeight+1})}
