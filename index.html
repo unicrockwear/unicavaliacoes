@@ -340,12 +340,22 @@ $('sd').onclick=async()=>{
 const n=$('nm').value.trim(),ig=normIg($('ig').value),c=$('cm').value.trim();
 if(!n||!ig||!sel||!c){$('msg').textContent='Preencha nome, Instagram, nota e comentário.';return}
 if(!/^[a-z0-9._]{1,30}$/.test(ig)){$('msg').textContent='Instagram inválido (use letras, números, . e _).';return}
-try{const ex=(await db.ref('unic_cartoes/'+igKey(ig)).once('value')).val();if(ex){showCard(ex);return}}catch(e){fbErr('verificar cartão')(e);$('msg').textContent='Erro de conexão. Tente novamente.';return}
+let ex=null;
+try{
+  ex=(await db.ref('unic_cartoes/'+igKey(ig)).once('value')).val();
+  if(ex){
+    // já tem cartão: só bloqueia se também já existe avaliação desse Instagram
+    const has=(await db.ref('unic_avaliacoes').orderByChild('ig').equalTo(ig).once('value')).exists();
+    if(has){showCard(ex);return}
+  }
+}catch(e){fbErr('verificar cartão')(e);$('msg').textContent='Erro de conexão. Tente novamente.';return}
 const f=$('ph').files[0];const p=f?await img(f,96,96,.8):null;
-const t=Date.now(),code=uniq(gCode),ver=uniq(gVer);
-const card={code,ver,n,ig,t,pct:S.pct,u:0};
+const t=Date.now();
+const card=ex||{code:uniq(gCode),ver:uniq(gVer),n,ig,t,pct:S.pct,u:0};
 const rk=db.ref('unic_avaliacoes').push().key;
-const up={};up['unic_cartoes/'+igKey(ig)]=card;up['unic_avaliacoes/'+rk]={n,ig,c,s:sel,p,t,h:0,code};
+const up={};
+if(!ex)up['unic_cartoes/'+igKey(ig)]=card;
+up['unic_avaliacoes/'+rk]={n,ig,c,s:sel,p,t,h:0,code:card.code};
 try {
   await db.ref().update(up);
   showCard(card);
