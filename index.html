@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
+<html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Unic Rockwear — Avaliações</title>
 <style>
@@ -52,128 +50,353 @@ h2{font-size:16px;margin:0 0 8px;color:var(--ac)}
 input,select,textarea{background:#111;color:#fff;border:1px solid #444;padding:9px;font-family:Arial;width:100%;margin:4px 0 10px;border-radius:3px}
 label{font-size:12px;color:var(--gr)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-#stars span{font-size:32px;color:#555;cursor:pointer}
-#stars span.on{color:var(--ac)}
-.modal{position:fixed;inset:0;background:#000d;display:none;align-items:center;justify-content:center;z-index:10;padding:20px}
+#stars span{font-size:32px;color:#555;cursor:pointer}#stars span.on{color:var(--ac)}
+.modal{position:fixed;inset:0;background:#000d;display:none;overflow:auto;padding:16px;z-index:9}
 .modal.on{display:flex}
-.mbox{background:#111;border:2px solid var(--ac);width:100%;max-width:480px;padding:20px;border-radius:4px;max-height:90vh;overflow-y:auto}
-@media(max-width:900px){main{grid-template-columns:1fr;overflow-y:auto}body{overflow:auto}}
-</style>
-</head>
-<body>
-<div id="bgw">
-  <div id="bgt">UNIC ROCKWEAR PUNK ROCK HEAVY METAL CUSTOM JACKETS</div>
-</div>
+.box{background:#0b0b0b;border:2px solid var(--ac);padding:18px;width:100%;max-width:640px;margin:auto}
+.box.wide{max-width:940px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.fr{display:flex;flex-direction:column}
+.fr textarea{flex:1;min-height:130px;resize:none}
+.hint{font-size:11px;color:#888;line-height:1.4;margin:0}
+#stars{white-space:nowrap}
+.cpg{display:none;grid-template-columns:1.6fr 1fr;gap:20px;align-items:center}
+.cpg canvas{width:100%;height:auto;border:1px solid #333;display:block}
+.cpg p{color:var(--gr);font-size:13px;line-height:1.5}
+.rv a.ig{color:#c0c0c0;font-size:12px;text-decoration:none;margin-left:4px}
+.rv a.ig:hover{color:var(--ac)}
+.rv .dt{display:block;font-size:11px;color:#888;margin-top:1px}
+.info{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:10px;padding:12px 14px;container-type:inline-size;background:linear-gradient(180deg,#000b,#000d);border-top:2px solid var(--ac)}
+.ig4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex:1;min-height:0;align-content:center;align-items:stretch}
+.it{position:relative;overflow:hidden;padding-block:12px !important;background:linear-gradient(160deg,#171717,#0c0c0c);border:1px solid #2c2c2c;border-radius:4px;padding:10px 12px;display:grid;grid-template-columns:30px 1fr;grid-template-rows:auto auto;column-gap:10px;row-gap:6px;align-content:start;transition:border-color .2s,transform .2s}
+.it:hover{border-color:var(--ac);transform:translateY(-1px)}
+.it .ic{grid-row:1;grid-column:1;width:30px;height:30px;border-radius:50%;background:#f5c40018;border:1px solid #f5c40066;display:flex;align-items:center;justify-content:center}
+.it .ic svg{width:16px;height:16px;fill:none;stroke:var(--ac);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.it b{grid-row:1;grid-column:2;align-self:center;font-family:"Arial Black",Arial;text-transform:uppercase;font-size:calc(11px*var(--k,1));letter-spacing:1px;color:var(--ac);line-height:1.2}
+.it span{grid-row:2;grid-column:1/-1;font-size:calc(12.5px*var(--k,1));color:var(--gr);line-height:1.35}
+.it strong{color:#fff}
+.ref{display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:1px solid #2a2a2a;padding-top:8px;font-size:calc(12.5px*var(--k,1));color:var(--gr);line-height:1.4}
+.ref span{display:flex;align-items:center;gap:8px}
+.ref span:before{content:"";flex:none;width:8px;height:8px;background:var(--ac);transform:rotate(45deg)}
+.gg{background:#d9d9d9;color:#222;text-decoration:none;display:inline-block;white-space:nowrap;padding:8px 16px;font-family:"Arial Black",Arial;text-transform:uppercase;font-size:11px;border-radius:3px}
+.gg:hover{background:var(--ac)}
+@container (max-width:760px){.ig4{grid-template-columns:1fr 1fr}.it span{font-size:calc(12px*var(--k,1))}}
+.ar{display:flex;gap:6px;align-items:center;margin:6px 0;flex-wrap:wrap}
+footer{text-align:center;color:#888;font-size:12px;padding:8px;border-top:1px solid #222;background:#000c}
+footer a{color:var(--ac);text-decoration:none;font-weight:bold}
+@media(max-width:820px){.fgrid,.cpg{grid-template-columns:1fr}.ig4{grid-template-columns:1fr 1fr}.ref{flex-direction:column;align-items:flex-start}body{height:auto;overflow:auto}main{grid-template-columns:1fr}#list{max-height:380px}}
+@media(max-width:520px){.ig4{grid-template-columns:1fr!important}}
+@media(max-height:820px){.info{padding:8px 10px;gap:6px}.ig4{gap:6px}.it{padding:6px 9px;grid-template-columns:1fr;row-gap:3px}.it .ic{display:none}.it b{grid-column:1}.it span{grid-column:1}.gg{padding:6px 12px}}
+@media(max-height:700px) and (min-width:821px){.ig4{grid-template-columns:repeat(4,1fr)!important}.it{padding:5px 7px}.ref span:before{display:none}}
+</style></head><body>
+<div id="bgw"><div id="bgt"></div><div id="bgi"></div></div>
 <header>
-  <div class="lg">
-    <h1 onclick="location.reload()">UNIC <span>ROCKWEAR</span></h1>
-  </div>
-  <button onclick="openModal()">Deixar Avaliação</button>
+<div class="lg"><img id="logo" alt="Unic Rockwear"><h1 id="brand"><span id="bn">Unic</span> <em id="bs">Rockwear</em></h1></div>
+<div id="radio"><div id="eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span id="radioTxt">Rádio Unic</span></div>
 </header>
 <main>
-  <div class="col">
-    <div class="card sum">
-      <div>
-        <div class="big" id="avgNum">5.0</div>
-        <div>
-          <div class="st">★★★★★</div>
-          <div style="font-size:13px;color:var(--gr)"><span id="totalRv">0</span> avaliações de clientes</div>
-        </div>
-      </div>
-    </div>
-    <div class="card rc" style="flex:1;">
-      <h2>Opiniões da Galera</h2>
-      <div id="list"></div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="flex:1;display:flex;flex-direction:column;">
-      <h2>Destaques Unic</h2>
-      <div id="car">
-        <div id="trk">
-          <div style="background:linear-gradient(135deg,#111,#222)">UNIC ROCKWEAR — CUSTOM APPAREL</div>
-          <div style="background:linear-gradient(135deg,#1a1a1a,#111)">DTG &amp; DTF PRINTING</div>
-        </div>
-        <div id="dots"></div>
-      </div>
-    </div>
-  </div>
-</main>
-
-<div class="modal" id="modal">
-  <div class="mbox">
-    <h2>Nova Avaliação</h2>
-    <form id="form" onsubmit="saveRv(event)">
-      <label>Seu Nome</label>
-      <input type="text" id="name" required placeholder="Ex: Almir Brito">
-      <label>Sua Nota</label>
-      <div id="stars" style="margin:6px 0 12px">
-        <span onclick="setRate(1)">★</span><span onclick="setRate(2)">★</span><span onclick="setRate(3)">★</span><span onclick="setRate(4)">★</span><span onclick="setRate(5)" class="on">★</span>
-      </div>
-      <input type="hidden" id="rate" value="5">
-      <label>Seu Comentário</label>
-      <textarea id="comm" rows="4" required placeholder="O que achou da jaqueta/produto?"></textarea>
-      <div style="display:flex;gap:10px;margin-top:10px">
-        <button type="submit" style="flex:1">Enviar Avaliação</button>
-        type="button" class="g" onclick="closeModal()" style="flex:1">Cancelar</button>
-      </div>
-    </form>
-  </div>
+<div class="col">
+<div id="car"><div id="trk"></div><div id="dots"></div></div>
+<div class="card"><div class="sum"><div><div class="big" id="avg">0,0</div><div><div class="st" id="avst">☆☆☆☆☆</div><div id="cnt" style="color:var(--gr);font-size:13px">0 avaliações</div></div></div>
+<button id="op">★ Avalie e ganhe <span id="dsc">10</span>% OFF</button></div></div>
+<div class="card info">
+<div class="ig4">
+<div class="it"><i class="ic"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></i><b>Sob encomenda</b><span>Produção exclusiva e envio para todo o Brasil.</span></div>
+<div class="it"><i class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></i><b>Avalie e ganhe</b><span>Deixe sua avaliação e receba um cartão de desconto exclusivo.</span></div>
+<div class="it"><i class="ic"><svg viewBox="0 0 24 24"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 10V6a3 3 0 016 0v4"/></svg></i><b>Nova encomenda</b><span>Faça uma nova encomenda e use seu cartão de <strong id="dsc3">10</strong>% de desconto.</span></div>
+<div class="it"><i class="ic"><svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/><path d="M14 6l3 3"/></svg></i><b>Personalização</b><span>Peças personalizadas somente sob encomenda. Consulte nossa agenda e disponibilidade.</span></div>
 </div>
+<div class="ref"><span>Somos referência em Rock Wear no Brasil. Conheça mais sobre a Unic Rockwear pesquisando no Google.</span><a class="gg" href="https://www.google.com/search?q=Unic+Rockwear" target="_blank" rel="noopener">Pesquisar no Google</a></div>
+</div>
+</div>
+<div class="col"><div class="card rc"><h2>Avaliações dos clientes</h2><div id="list"></div></div></div>
+</main>
+<footer>© 2026 Unic Rockwear · <a href="https://www.instagram.com/unicrockwear/" target="_blank" rel="noopener">@unicrockwear</a></footer>
+
+<!-- ELEMENTO AUDIO NATIVO -->
+<audio id="audioPlayer" loop style="display:none;"></audio>
+
+<!-- MODAIS E PAINEL ADMIN -->
+<div class="modal" id="fmm"><div class="box wide"><h2 id="fmt">Avalie e ganhe <span id="dsc2"></span>% OFF</h2>
+<div id="fm" class="fgrid">
+<div>
+<div class="row"><div><label>Nome</label><input id="nm" maxlength="40"></div><div><label>Instagram (@usuário)</label><input id="ig" maxlength="40" placeholder="@usuario" autocapitalize="none" autocomplete="off"></div></div>
+<div class="row"><div><label>Foto (opcional)</label><input id="ph" type="file" accept="image/*"></div><div><label>Sua nota</label><div id="stars"></div></div></div>
+<p class="hint">Seu cartão de desconto será vinculado ao seu nome e ao seu Instagram: uso único, pessoal e intransferível.</p>
+</div>
+<div class="fr"><label>Comentário</label><textarea id="cm" maxlength="500"></textarea>
+<div class="ar"><button id="sd">Enviar avaliação</button><button class="g" id="fc">Fechar</button><span id="msg" style="color:var(--ac);font-size:13px"></span></div></div>
+</div>
+<div id="cp" class="cpg"></div></div></div>
+
+<div class="modal" id="lm"><div class="box"><h2>Acesso administrador</h2>
+<label>Login</label><input id="al"><label>Senha</label><input id="ap" type="password">
+<button id="ao">Entrar</button> <button class="g" onclick="document.getElementById('lm').classList.remove('on')">Cancelar</button> <span id="am" style="color:#f66"></span></div></div>
+
+<div class="modal" id="pm"><div class="box">
+<h2>Painel Unic</h2>
+<label>Logo da loja</label><div class="ar"><input id="elg" type="file" accept="image/*" style="width:auto"><button class="g" id="elx">Remover logo</button></div>
+<div class="row"><div><label>Nome (destaque)</label><input id="e1"></div><div><label>Sobrenome / subtítulo</label><input id="e2"></div></div>
+<div class="row"><div><label>Cor de destaque</label><input id="e3" type="color"></div><div><label>Cor de fundo</label><input id="e4" type="color"></div></div>
+<div class="row"><div><label>Cor do texto</label><input id="e5" type="color"></div><div><label>Desconto (%)</label><input id="e6" type="number" min="1" max="90"></div></div>
+<h2>Banners (1920×850)</h2><div id="eb"></div>
+<h2>Fotos/logos de bandas (fundo em degradê, até 6)</h2>
+<div class="ar"><input id="ebg" type="file" accept="image/*" multiple style="width:auto"></div><div id="ebl"></div>
+<h2>Verificar cartão de desconto</h2>
+<div class="ar"><input id="vc" placeholder="Código do cartão ou código de verificação" style="flex:1;margin:0"><button id="vb">Verificar</button></div><div id="vr" style="font-size:13px;margin-bottom:10px"></div>
+
+<!-- PAINEL RÁDIO MP3 COM ARMAZENAMENTO NO DATABASE -->
+<h2>RÁDIO: UPLOAD DE FICHEIRO MP3</h2>
+<div class="ar">
+  <input id="mp3Input" type="file" accept="audio/mp3,audio/*" style="width:auto">
+  <button class="g" id="rmvAudio">Remover Áudio</button>
+</div>
+<p style="font-size:11px;color:#888;">Envie um ficheiro MP3 para guardar diretamente no banco de dados.</p>
+
+<h2>Avaliações</h2><div id="er" style="max-height:240px;overflow:auto"></div>
+<div class="ar"><button id="sv">Salvar Base</button><button class="g" id="ex">Backup</button><button class="g" id="cl">Fechar</button></div>
+</div></div>
+
+<!-- Bibliotecas do Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-let reviews = JSON.parse(localStorage.getItem('unic_reviews') || '[]');
-if(reviews.length === 0) {
-  reviews = [
-    {name: "Almir Brito", rate: 5, date: "02/04/2026", comm: "Jaqueta Motorhead impecável! Qualidade de impressão e acabamento absurdos."},
-    {name: "Samantha Coelho", rate: 5, date: "10/03/2026", comm: "A jaqueta Guns N' Roses Bullet Fire ficou perfeita. Atendimento nota 10!"},
-    {name: "Adriana Szklo", rate: 5, date: "28/02/2026", comm: "Simplesmente apaixonada pelas minhas jaquetas customizadas. Trabalho único!"}
-  ];
-  localStorage.setItem('unic_reviews', JSON.stringify(reviews));
+const $=i=>document.getElementById(i);
+const D={ac:'#f5c400',bg:'#000000',tx:'#ffffff',n1:'Unic',n2:'Rockwear',b:[null,null,null],r:[],n:0,cards:{},cd:{},pct:10,logo:null,bands:[],audioData:null};
+
+let S = Object.assign({}, D); 
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAr9YtNP8cHzEQea2JR3BJKYpHzFH1PeHM",
+  authDomain: "unicavaliacoes-4d696.firebaseapp.com",
+  databaseURL: "https://unicavaliacoes-4d696-default-rtdb.firebaseio.com",
+  projectId: "unicavaliacoes-4d696",
+  storageBucket: "unicavaliacoes-4d696.firebasestorage.app",
+  messagingSenderId: "758903831774",
+  appId: "1:758903831774:web:2ca92c96cc90a04518564f"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const esc = t => { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; };
+
+let audioInitialized = false;
+
+db.ref('unic_dados').on('value', (snapshot) => {
+  const data = snapshot.val();
+  if (data) {
+    const oldAudio = S.audioData;
+    S = Object.assign({}, D, data);
+    S.b = S.b || [null,null,null];
+    S.r = S.r || [];
+    S.cards = S.cards || {};
+    S.cd = S.cd || {};
+    S.bands = S.bands || [];
+    theme(); 
+    car();   
+    rend();  
+    
+    // Só recarrega a fonte do áudio se a faixa tiver sido alterada na base
+    if (oldAudio !== S.audioData || !audioInitialized) {
+      loadAudio();
+      audioInitialized = true;
+    }
+  }
+});
+
+const save = () => { db.ref('unic_dados').set(S).catch(e => alert('Erro: ' + e)); };
+
+const BANDS='Metallica Iron Maiden AC/DC Guns N\' Roses Nirvana Linkin Park Misfits Kiss Queen Black Sabbath Pink Floyd Led Zeppelin Ramones Slayer Megadeth Pantera Ozzy Osbourne Rolling Stones The Doors Scorpions Aerosmith Bon Jovi Rush Deep Purple ';
+$('bgt').textContent=BANDS.repeat(6);
+
+function theme(){const r=document.documentElement.style;r.setProperty('--ac',S.ac);r.setProperty('--bg',S.bg);r.setProperty('--tx',S.tx);
+$('bn').textContent=S.n1;$('bs').textContent=S.n2;$('dsc').textContent=S.pct;$('dsc2').textContent=S.pct;$('dsc3').textContent=S.pct;
+const l=$('logo');if(S.logo){l.src=S.logo;l.style.display='block';$('brand').style.display='none'}else{l.style.display='none';$('brand').style.display=''}
+$('bgi').innerHTML='';S.bands.forEach(b=>{const d=document.createElement('div');d.style.backgroundImage='url('+b+')';$('bgi').appendChild(d)})}
+
+let ci=0,ct;
+function car(){const t=$('trk');t.innerHTML='';$('dots').innerHTML='';
+S.b.forEach((b,i)=>{const d=document.createElement('div');if(b)d.style.backgroundImage='url('+b+')';else d.textContent='BANNER 1920×850';t.appendChild(d);
+const o=document.createElement('i');o.onclick=()=>go(i);$('dots').appendChild(o)});go(ci)}
+function go(i){ci=i%3;$('trk').style.transform='translateX(-'+ci*100+'%)';[...$('dots').children].forEach((d,j)=>d.classList.toggle('on',j==ci));clearInterval(ct);ct=setInterval(()=>go(ci+1),5000)}
+
+const fmt=t=>{const o={timeZone:'America/Sao_Paulo'},d=new Date(t);return d.toLocaleDateString('pt-BR',{...o,day:'2-digit',month:'2-digit',year:'numeric'})+' às '+d.toLocaleTimeString('pt-BR',{...o,hour:'2-digit',minute:'2-digit'})};
+function stars(n){return '★'.repeat(n)+'☆'.repeat(5-n)}
+function rend(){const v=S.r.filter(x=>!x.h);const a=v.length?v.reduce((s,x)=>s+x.s,0)/v.length:0;
+$('avg').textContent=a.toFixed(1).replace('.',',');$('avst').textContent=stars(Math.round(a));$('cnt').textContent=v.length+(v.length==1?' avaliação':' avaliações');
+const L=$('list');L.innerHTML=v.length?'':'<p style="color:#777">Seja o primeiro a avaliar!</p>';
+v.slice().reverse().forEach(x=>{const e=document.createElement('div');e.className='rv';
+const av=x.p?'<img src="'+x.p+'" alt="">':'<div class="av"><svg viewBox="0 0 24 24" width="26" height="26" fill="#888" aria-label="Usuário"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-4.7 3.8-8 8.5-8s8.5 3.3 8.5 8z"/></svg></div>';
+const ig=x.ig?'<a class="ig" href="https://www.instagram.com/'+esc(x.ig)+'/" target="_blank" rel="noopener">@'+esc(x.ig)+'</a>':'';
+e.innerHTML=av+'<div><b>'+esc(x.n)+'</b>'+ig+'<span class="dt">'+esc(x.t?fmt(x.t):(x.d||''))+'</span><div class="st">'+stars(x.s)+'</div><p>'+esc(x.c)+'</p></div>';L.appendChild(e)})}
+
+let sel=0;
+const st=$('stars');for(let i=1;i<=5;i++){const s=document.createElement('span');s.textContent='★';s.onclick=()=>{sel=i;[...st.children].forEach((c,j)=>c.classList.toggle('on',j<i))};st.appendChild(s)}
+function openForm(){$('fm').style.display='';$('cp').style.display='none';$('fmt').innerHTML='Avalie e ganhe <span id="dsc2">'+S.pct+'</span>% OFF';$('msg').textContent='';$('fmm').classList.add('on')}
+$('op').onclick=openForm;$('fc').onclick=()=>$('fmm').classList.remove('on');
+const AL='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+function rnd(n){const a=new Uint8Array(n);crypto.getRandomValues(a);return [...a].map(v=>AL[v%32]).join('')}
+function uniq(mk){const used=new Set();Object.values(S.cd).forEach(c=>{used.add(c.code);used.add(c.ver)});let v;do{v=mk()}while(used.has(v));return v}
+const gCode=()=>'UNIC-'+rnd(4)+'-'+rnd(4), gVer=()=>rnd(4)+'-'+rnd(4)+'-'+rnd(4)+'-'+rnd(4);
+const normIg=v=>v.trim().toLowerCase().replace(/^https?:\/\/(www\.)?instagram\.com\//,'').replace(/[\/?#].*$/,'').replace(/^@+/,'');
+function fit(x,t,w,sz,f){do{x.font=sz+'px '+f;sz-=2}while(x.measureText(t).width>w&&sz>10)}
+function drawCard(c){const W=1000,H=560,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');
+const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,'#141414');g.addColorStop(1,'#000');x.fillStyle=g;x.fillRect(0,0,W,H);
+x.strokeStyle=S.ac;x.lineWidth=8;x.strokeRect(4,4,W-8,H-8);x.setLineDash([12,8]);x.lineWidth=2;x.strokeRect(20,20,W-40,H-40);x.setLineDash([]);
+x.textAlign='center';const F='"Arial Black",Arial,sans-serif';
+x.fillStyle=S.ac;x.font='44px '+F;x.fillText('UNIC ROCKWEAR',W/2,90);
+x.fillStyle='#c0c0c0';x.font='18px Arial';x.fillText('CARTÃO DE DESCONTO EXCLUSIVO',W/2,122);
+x.fillStyle='#fff';x.font='90px '+F;x.fillText((c.pct||S.pct)+'% OFF',W/2,215);
+x.fillStyle='#ccc';x.font='18px Arial';x.fillText('na sua próxima encomenda',W/2,248);
+x.strokeStyle='#333';x.lineWidth=1;x.beginPath();x.moveTo(60,278);x.lineTo(W-60,278);x.stroke();
+x.textAlign='left';
+x.fillStyle='#888';x.font='13px Arial';x.fillText('TITULAR',70,314);
+x.fillStyle='#fff';fit(x,c.n,400,28,F);x.fillText(c.n,70,350);
+x.fillStyle=S.ac;fit(x,'@'+c.ig,400,26,F);x.fillText('@'+c.ig,70,388);
+x.fillStyle='#888';x.font='13px Arial';x.fillText('EMITIDO EM',70,424);x.fillStyle='#ddd';x.font='16px Arial';x.fillText(fmt(c.t),70,446);
+x.fillStyle='#888';x.font='13px Arial';x.fillText('CÓDIGO DO CARTÃO',540,314);
+x.fillStyle=S.ac;x.font='38px '+F;x.fillText(c.code,540,356);
+x.fillStyle='#888';x.font='13px Arial';x.fillText('VERIFICAÇÃO ÚNICA E EXCLUSIVA',540,394);
+x.fillStyle='#fff';x.font='bold 26px "Courier New",monospace';x.fillText(c.ver,540,428);
+x.textAlign='center';x.fillStyle='#ddd';x.font='bold 17px Arial';x.fillText('Válido para o Titular: @'+c.ig+' · Uso único, pessoal e intransferível',W/2,498);
+x.fillStyle='#777';x.font='12px Arial';x.fillText('Sujeito à conferência do código de verificação pela loja. Cartões duplicados ou de terceiros não serão aceitos.',W/2,526);
+return cv}
+function showCard(c){$('fm').style.display='none';const cp=$('cp');cp.style.display='grid';cp.innerHTML='';$('fmt').textContent='Seu cartão de desconto';
+const cv=drawCard(c),side=document.createElement('div');
+side.innerHTML='<p><b style="color:var(--ac)">Avaliação enviada. Obrigado!</b><br>Este cartão é válido somente para o titular <b>@'+esc(c.ig)+'</b>, com uso único, pessoal e intransferível. Baixe e guarde a imagem para apresentar na sua próxima encomenda.</p><div class="ar"></div>';
+const d=document.createElement('button');d.textContent='⬇ Baixar cartão';d.onclick=()=>{const a=document.createElement('a');a.href=cv.toDataURL('image/png');a.download='cartao-unic-'+c.ig+'.png';a.click()};
+const f=document.createElement('button');f.className='g';f.textContent='Fechar';f.onclick=()=>$('fmm').classList.remove('on');
+side.lastChild.append(d,f);cp.append(cv,side)}
+function img(f,w,h,q,contain){return new Promise(r=>{const fr=new FileReader();fr.onload=()=>{const i=new Image();i.onload=()=>{let W=w,H=h;if(contain){const k=Math.min(w/i.width,h/i.height,1);W=Math.round(i.width*k);H=Math.round(i.height*k)}const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');const k=contain?W/i.width:Math.max(w/i.width,h/i.height);x.drawImage(i,(W-i.width*k)/2,(H-i.height*k)/2,i.width*k,i.height*k);r(c.toDataURL(contain?'image/png':'image/jpeg',q))};i.src=fr.result};fr.readAsDataURL(f)})}
+
+$('sd').onclick=async()=>{
+const n=$('nm').value.trim(),ig=normIg($('ig').value),c=$('cm').value.trim();
+if(!n||!ig||!sel||!c){$('msg').textContent='Preencha nome, Instagram, nota e comentário.';return}
+if(!/^[a-z0-9._]{1,30}$/.test(ig)){$('msg').textContent='Instagram inválido (use letras, números, . e _).';return}
+if(S.cd[ig]){showCard(S.cd[ig]);return}
+const f=$('ph').files[0];const p=f?await img(f,96,96,.8):null;
+const t=Date.now(),code=uniq(gCode),ver=uniq(gVer);
+const card={code,ver,n,ig,t,pct:S.pct,u:0};S.cd[ig]=card;
+S.r.push({n,ig,c,s:sel,p,t,h:0,code});save();rend();showCard(card)};
+
+let clicks=0,clt;
+const openLoginModal = ()=>{clicks++;clearTimeout(clt);clt=setTimeout(()=>clicks=0,900);if(clicks>=3){clicks=0;$('lm').classList.add('on')}};
+$('brand').onclick=openLoginModal;
+$('logo').onclick=openLoginModal;
+
+$('ao').onclick=()=>{if($('al').value==='Mohamed'&&$('ap').value==='153045'){$('lm').classList.remove('on');$('al').value=$('ap').value='';$('am').textContent='';panel()}else $('am').textContent='Login ou senha incorretos.'};
+$('elg').onchange=async e=>{if(e.target.files[0]){S.logo=await img(e.target.files[0],400,160,1,true);save();theme()}};
+$('elx').onclick=()=>{S.logo=null;save();theme()};
+$('ebg').onchange=async e=>{for(const f of e.target.files){if(S.bands.length<6)S.bands.push(await img(f,900,900,.6))}e.target.value='';save();theme();panel()};
+
+function panel(){
+$('e1').value=S.n1;$('e2').value=S.n2;$('e3').value=S.ac;$('e4').value=S.bg;$('e5').value=S.tx;$('e6').value=S.pct;
+$('eb').innerHTML='';for(let i=0;i<3;i++){const d=document.createElement('div');d.className='ar';d.innerHTML='<span>Banner '+(i+1)+(S.b[i]?' ✔':'')+'</span><input type="file" accept="image/*" style="width:auto"><button class="g">Remover</button>';
+d.children[1].onchange=async e=>{if(e.target.files[0]){S.b[i]=await img(e.target.files[0],1920,850,.7);save();car();panel()}};
+d.children[2].onclick=()=>{S.b[i]=null;save();car();panel()};$('eb').appendChild(d)}
+$('ebl').innerHTML='';S.bands.forEach((b,i)=>{const d=document.createElement('div');d.className='ar';d.innerHTML='<img src="'+b+'" style="height:36px"><span>Imagem '+(i+1)+'</span><button class="g">Remover</button>';d.children[2].onclick=()=>{S.bands.splice(i,1);save();theme();panel()};$('ebl').appendChild(d)});
+const R=$('er');R.innerHTML='';S.r.forEach((x,i)=>{const d=document.createElement('div');d.className='ar';d.innerHTML='<span style="flex:1;min-width:160px"><b>'+esc(x.n)+'</b>'+(x.ig?' @'+esc(x.ig):'')+' '+stars(x.s)+'<br><small style="color:#888">'+esc(x.t?fmt(x.t):(x.d||''))+(x.code?' · '+esc(x.code):'')+'</small>'+(x.h?' <i style="color:#f66">(oculta)</i>':'')+'<br><small style="color:#999">'+esc(x.c.slice(0,80))+'</small></span><button class="g">'+(x.h?'Mostrar':'Ocultar')+'</button><button class="r">Excluir</button>';
+d.children[1].onclick=()=>{x.h=x.h?0:1;save();rend();panel()};
+d.children[2].onclick=()=>{if(confirm('Excluir esta avaliação?')){S.r.splice(i,1);save();rend();panel()}};R.appendChild(d)});
+$('pm').classList.add('on')}
+$('sv').onclick=()=>{S.n1=$('e1').value;S.n2=$('e2').value;S.ac=$('e3').value;S.bg=$('e4').value;S.tx=$('e5').value;S.pct=+$('e6').value||10;save();theme();alert('Guardado!')};
+$('vb').onclick=()=>{const q=$('vc').value.trim().toUpperCase(),c=Object.values(S.cd).find(x=>x.code===q||x.ver===q),R=$('vr');
+if(!c){R.innerHTML='<span style="color:#f66">Cartão não encontrado.</span>';return}
+R.innerHTML='<b>'+esc(c.n)+'</b> · @'+esc(c.ig)+' · '+esc(fmt(c.t))+' · '+(c.u?'<span style="color:#f66">JÁ UTILIZADO</span>':'<span style="color:#6f6">VÁLIDO</span>')+' ';
+const b=document.createElement('button');b.className='g';b.textContent=c.u?'Reativar':'Marcar como usado';b.onclick=()=>{c.u=c.u?0:1;save();$('vb').onclick()};R.appendChild(b)};
+$('cl').onclick=()=>$('pm').classList.remove('on');
+$('ex').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));a.download='unic-backup.json';a.click()};
+
+/* --- GERENCIADOR DE ÁUDIO AUTO-START --- */
+const player = $('audioPlayer');
+
+$('eq').querySelectorAll('i').forEach(i => {
+  i.style.animationDuration = (0.45 + Math.random() * 0.9).toFixed(2) + 's';
+  i.style.animationDelay = '-' + (Math.random() * 1.2).toFixed(2) + 's';
+});
+
+function tryPlayAudio() {
+  if (player.src && player.paused) {
+    player.play().then(() => {
+      $('radio').classList.add('on');
+      $('radioTxt').textContent = "Rádio Unic Tocando...";
+    }).catch(e => {
+      // Aguarda o primeiro clique na página caso o navegador bloqueie
+    });
+  }
 }
 
-function render() {
-  const list = document.getElementById('list');
-  list.innerHTML = '';
-  let sum = 0;
-  reviews.forEach(r => {
-    sum += Number(r.rate);
-    const div = document.createElement('div');
-    div.className = 'rv';
-    div.innerHTML = `<div class="av">${r.name.charAt(0)}</div>
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between"><b>${r.name}</b><small>${r.date}</small></div>
-        <div style="color:var(--ac);font-size:12px">${'★'.repeat(r.rate)}${'☆'.repeat(5-r.rate)}</div>
-        <p>${r.comm}</p>
-      </div>`;
-    list.appendChild(div);
-  });
-  document.getElementById('totalRv').innerText = reviews.length;
-  document.getElementById('avgNum').innerText = (reviews.length ? (sum/reviews.length).toFixed(1) : '5.0');
+function loadAudio() {
+  if (S.audioData) {
+    if (player.src !== S.audioData) {
+      player.src = S.audioData;
+    }
+    $('radio').classList.add('has');
+    tryPlayAudio();
+  } else {
+    player.pause();
+    player.removeAttribute('src');
+    $('radio').classList.remove('has', 'on');
+    $('radioTxt').textContent = "Rádio Unic";
+  }
 }
 
-function openModal() { document.getElementById('modal').classList.add('on'); }
-function closeModal() { document.getElementById('modal').classList.remove('on'); }
-function setRate(n) {
-  document.getElementById('rate').value = n;
-  document.querySelectorAll('#stars span').forEach((s, i) => {
-    s.classList.toggle('on', i < n);
-  });
-}
-function saveRv(e) {
-  e.preventDefault();
-  const name = document.getElementById('name').value;
-  const rate = document.getElementById('rate').value;
-  const comm = document.getElementById('comm').value;
-  const date = new Date().toLocaleDateString('pt-BR');
-  reviews.unshift({name, rate, date, comm});
-  localStorage.setItem('unic_reviews', JSON.stringify(reviews));
-  closeModal();
-  render();
-  document.getElementById('form').reset();
-  setRate(5);
-}
-render();
+// Inicia o áudio no primeiro clique do usuário em qualquer lugar da tela
+const startAudioOnFirstUserInteraction = () => {
+  if (player.src && player.paused) {
+    tryPlayAudio();
+  }
+  document.removeEventListener('click', startAudioOnFirstUserInteraction);
+  document.removeEventListener('touchstart', startAudioOnFirstUserInteraction);
+};
+document.addEventListener('click', startAudioOnFirstUserInteraction);
+document.addEventListener('touchstart', startAudioOnFirstUserInteraction);
+
+$('radio').onclick = (e) => {
+  e.stopPropagation();
+  if (!player.src) return;
+  if (player.paused) {
+    player.play().then(() => {
+      $('radio').classList.add('on');
+      $('radioTxt').textContent = "Rádio Unic Tocando...";
+    }).catch(e => console.error("Erro ao tocar:", e));
+  } else {
+    player.pause();
+    $('radio').classList.remove('on');
+    $('radioTxt').textContent = "Rádio Unic";
+  }
+};
+
+$('mp3Input').onchange = e => {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      S.audioData = evt.target.result;
+      save();
+      loadAudio();
+      alert("Áudio MP3 carregado e salvo na base de dados!");
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+$('rmvAudio').onclick = () => {
+  S.audioData = null;
+  save();
+  loadAudio();
+  $('mp3Input').value = '';
+  alert("Áudio removido!");
+};
+</script><script>
+(function(){var el=document.querySelector('.info');if(!el)return;
+var its=[].slice.call(el.querySelectorAll('.it'));
+function over(){if(el.scrollHeight>el.clientHeight+1)return true;return its.some(function(i){return i.scrollHeight>i.clientHeight+1})}
+function fit(){el.style.setProperty('--k',1);if(getComputedStyle(el).overflow==='visible')return;
+for(var k=1;k>=.55&&over();k-=.03)el.style.setProperty('--k',k.toFixed(2));}
+addEventListener('resize',fit);addEventListener('load',fit);fit();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+})();
 </script>
-</body>
-</html>
+</body></html>
